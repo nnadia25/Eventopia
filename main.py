@@ -6,9 +6,10 @@ import qrcode
 
 root = tk.Tk()
 root.title("Yuk Cari Tiket mu Disini!")
-root.geometry("1200x670")  
+root.geometry("1200x670")
+root.resizable(False, False)
 
-l1 = Label(root, text="Your Gateway to Unforgettable Events", font=("Helvetica", 16, "bold"), bg='lightblue')
+l1 = Label(root, text="Your Gateway to Unforgettable Events", font=("Perpetua", 16, "bold"), bg='sky blue')
 l1.pack(pady=10)
 
 def starter():
@@ -121,7 +122,7 @@ def starter():
         Button(root2, text="Blooms and Crafts", command=event1).pack()
         Button(root2, text="Flavor Fusion Kitchen", command=event2).pack()
         Button(root2, text="Suara Sejuta Rasa", command=event3).pack()
-        Button(root2, text='EXIT', bg='purple', command=root2.destroy).pack()
+        Button(root2, text='EXIT', bg='sky blue', command=root2.destroy).pack()
 
     show()
 
@@ -171,7 +172,7 @@ def pembayaran():
     main_frame = ttk.Frame(root_pembayaran, padding="20")
     main_frame.grid(row=0, column=0)
 
-    ttk.Label(main_frame, text="Data Pribadi", font=("Helvetica", 12)).grid(row=0, column=0, columnspan=2, pady=(0, 5), sticky="")
+    ttk.Label(main_frame, text="Data Pribadi", font=("Perpetua", 12)).grid(row=0, column=0, columnspan=2, pady=(0, 5), sticky="")
 
     ttk.Label(main_frame, text="Nama").grid(row=1, column=0, sticky="e")
     name_entry = ttk.Entry(main_frame)
@@ -211,13 +212,13 @@ i.image = im
 i.place(x=0, y=50) 
 
 #Button
-button_continue = Button(root, text="Beli Tiket", bg='White', font=("Helvetica", 12), compound="left", command=starter)
+button_continue = Button(root, text="Beli Tiket", bg='White', font=("Perpetua", 12), compound="left", command=starter)
 button_continue.place(x=330, y=440, width=150, height=50) 
 
-b1 = Button(root, text="Pembayaran", bg='light blue', font=("Helvetica", 12), compound="left", command=pembayaran)
+b1 = Button(root, text="Pembayaran", bg='light blue', font=("Perpetua", 12), compound="left", command=pembayaran)
 b1.place(x=530, y=440, width=150, height=50)  
 
-button_quit = Button(root, text='EXIT', bg='white', font=("Helvetica", 12), compound="left", command=root.quit)
+button_quit = Button(root, text='EXIT', bg='white', font=("Perpetua", 12), compound="left", command=root.quit)
 button_quit.place(x=730, y=440, width=150, height=50)  
 
 root.mainloop()
