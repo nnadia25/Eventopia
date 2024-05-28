@@ -202,7 +202,7 @@ def pembayaran(nama_event, harga_tiket):
     submit_button = ttk.Button(main_frame, text="Bayar", command=submit_form)
     submit_button.grid(row=7, column=0, columnspan=2, pady=(20, 0))
 
-image_path = r'C:\Users\ASUS\Documents\21 Prokom\Home.jpeg'
+image_path = r'C:\Users\DELL\.vscode\EVENTOPIA\Eventopia\Home.jpeg'
 original_image = Image.open(image_path)
 resized_image = original_image.resize((1200, 600), Image.LANCZOS)
 im = ImageTk.PhotoImage(resized_image)
