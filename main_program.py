@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, Label, Button, Radiobutton, messagebox, Entry
-from PIL import Image, ImageTk, ImageDraw
-from PIL import ImageFont
+from PIL import Image, ImageTk, ImageDraw, ImageFont
+import os
 
 root = tk.Tk()
 root.title("Yuk Cari Tiketmu Disini!")
@@ -11,6 +11,17 @@ root.resizable(False, False)
 # Stack untuk melacak riwayat halaman
 history_stack = []
 
+event_details = {
+    "Bouquet Crafting Workshop": {"harga": 150000, "tempat": "Solo Art Market Area A", "tanggal": "1 Juni 2024"},
+    "Clay Painting Class": {"harga": 75000, "tempat": "Solo Art Market Area B", "tanggal": "2 Juni 2024"},
+    "Beads Crafting Session": {"harga": 50000, "tempat": "Solo Art Market Area C", "tanggal": "3 Juni 2024"},
+    "Pizza Palooza": {"harga": 150000, "tempat": "Bento Kopi UNS Area A", "tanggal": "4 Juni 2024"},
+    "SweetBake Cup": {"harga": 150000, "tempat": "Bento Kopi UNS Area B", "tanggal": "5 Juni 2024"},
+    "CakeCraft Bento": {"harga": 150000, "tempat": "Bento Kopi UNS Area C", "tanggal": "6 Juni 2024"},
+    "Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)": {"harga": 200000, "tempat": "Pura Mangkunegaran", "tanggal": "7 Juni 2024"},
+    "Day 2 (Gangga, Nadhif Basalamah, Tulus)": {"harga": 200000, "tempat": "Pura Mangkunegaran", "tanggal": "8 Juni 2024"},
+}
+
 def start_main_program():
     root1 = tk.Toplevel(root)
     root1.title("Pilih Event")
@@ -19,7 +30,7 @@ def start_main_program():
     history_stack.append(root1)
 
     def show():
-        root1.destroy()
+        root1.withdraw()
         root2 = tk.Toplevel(root)
         root2.title("Pilih Event")
         root2.geometry("300x200")
@@ -27,59 +38,62 @@ def start_main_program():
         history_stack.append(root2)
 
         def event1():
-            root2.destroy()
+            root2.withdraw()
             root3 = tk.Toplevel(root)
             root3.title("Pilih Blooms and Crafts")
             root3.geometry("300x200")
             root3.resizable(False, False)
             history_stack.append(root3)
 
-            def harga(harga_tiket, nama_event):
-                root3.destroy()
-                tagihan(nama_event, harga_tiket)
+            def harga(nama_event):
+                root3.withdraw()
+                details = event_details[nama_event]
+                tagihan(nama_event, details['harga'], details['tempat'], details['tanggal'])
 
             l = Label(root3, text="EVENT YANG TERSEDIA :")
             l.pack(pady=10)
-            Radiobutton(root3, text="Bouquet Crafting Workshop", command=lambda: harga(150000, "Bouquet Crafting Workshop")).pack()
-            Radiobutton(root3, text="Clay Painting Class", command=lambda: harga(75000, "Clay Painting Class")).pack()
-            Radiobutton(root3, text="Beads Crafting Session", command=lambda: harga(50000, "Beads Crafting Session")).pack()
+            Radiobutton(root3, text="Bouquet Crafting Workshop", command=lambda: harga("Bouquet Crafting Workshop")).pack()
+            Radiobutton(root3, text="Clay Painting Class", command=lambda: harga("Clay Painting Class")).pack()
+            Radiobutton(root3, text="Beads Crafting Session", command=lambda: harga("Beads Crafting Session")).pack()
             Button(root3, text="Back", command=navigate_back).pack(pady=10)
 
         def event2():
-            root2.destroy()
+            root2.withdraw()
             root3 = tk.Toplevel(root)
             root3.title("Pilih Flavor Fusion Kitchen")
             root3.geometry("300x200")
             root3.resizable(False, False)
             history_stack.append(root3)
 
-            def harga(harga_tiket, nama_event):
-                root3.destroy()
-                tagihan(nama_event, harga_tiket)
+            def harga(nama_event):
+                root3.withdraw()
+                details = event_details[nama_event]
+                tagihan(nama_event, details['harga'], details['tempat'], details['tanggal'])
 
             l = Label(root3, text="EVENT YANG TERSEDIA:")
             l.pack(pady=10)
-            Radiobutton(root3, text="Pizza Palooza", command=lambda: harga(150000, "Pizza Palooza")).pack()
-            Radiobutton(root3, text="SweetBake Cup", command=lambda: harga(150000, "SweetBake Cup")).pack()
-            Radiobutton(root3, text="CakeCraft Bento", command=lambda: harga(150000, "CakeCraft Bento")).pack()
+            Radiobutton(root3, text="Pizza Palooza", command=lambda: harga("Pizza Palooza")).pack()
+            Radiobutton(root3, text="SweetBake Cup", command=lambda: harga("SweetBake Cup")).pack()
+            Radiobutton(root3, text="CakeCraft Bento", command=lambda: harga("CakeCraft Bento")).pack()
             Button(root3, text="Back", command=navigate_back).pack(pady=10)
 
         def event3():
-            root2.destroy()
+            root2.withdraw()
             root3 = tk.Toplevel(root)
             root3.title("Pilih Suara Sejuta Rasa")
             root3.geometry("300x200")
             root3.resizable(False, False)
             history_stack.append(root3)
 
-            def harga(harga_tiket, nama_event):
-                root3.destroy()
-                tagihan(nama_event, harga_tiket)
+            def harga(nama_event):
+                root3.withdraw()
+                details = event_details[nama_event]
+                tagihan(nama_event, details['harga'], details['tempat'], details['tanggal'])
 
             l = Label(root3, text="EVENT YANG TERSEDIA:")
             l.pack(pady=10)
-            Radiobutton(root3, text="Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)", command=lambda: harga(200000, "Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)")).pack()
-            Radiobutton(root3, text="Day 2 (Gangga, Nadhif Basalamah, Tulus)", command=lambda: harga(200000, "Day 2 (Gangga, Nadhif Basalamah, Tulus)")).pack()
+            Radiobutton(root3, text="Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)", command=lambda: harga("Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)")).pack()
+            Radiobutton(root3, text="Day 2 (Gangga, Nadhif Basalamah, Tulus)", command=lambda: harga("Day 2 (Gangga, Nadhif Basalamah, Tulus)")).pack()
             Button(root3, text="Back", command=navigate_back).pack(pady=10)
 
         l3 = Label(root2, text="PILIH EVENT:")
@@ -91,10 +105,10 @@ def start_main_program():
 
     show()
 
-def tagihan(nama_event, harga_tiket):
+def tagihan(nama_event, harga_tiket, tempat, tanggal):
     root5 = tk.Toplevel(root)
     root5.title("Tagihan Tiket")
-    root5.geometry("300x350")
+    root5.geometry("300x400")
     root5.resizable(False, False)
     history_stack.append(root5)
 
@@ -110,7 +124,7 @@ def tagihan(nama_event, harga_tiket):
     def proceed_to_payment():
         try:
             jumlah_tiket = int(jumlah_entry.get())
-            pembayaran(nama_event, harga_tiket, jumlah_tiket)
+            pembayaran(nama_event, harga_tiket, jumlah_tiket, tempat, tanggal)
         except ValueError:
             messagebox.showerror("Error", "Jumlah tiket harus valid sebelum melanjutkan!")
 
@@ -120,6 +134,10 @@ def tagihan(nama_event, harga_tiket):
     l2.pack(pady=5)
     l3 = Label(root5, text=f"Harga Tiket: Rp. {harga_tiket}")
     l3.pack(pady=5)
+    l4_tempat = Label(root5, text=f"Tempat: {tempat}")
+    l4_tempat.pack(pady=5)
+    l4_tanggal = Label(root5, text=f"Tanggal: {tanggal}")
+    l4_tanggal.pack(pady=5)
 
     Label(root5, text="Jumlah Tiket:").pack(pady=5)
     jumlah_entry = Entry(root5)
@@ -136,19 +154,24 @@ def tagihan(nama_event, harga_tiket):
     b3.pack()
 
 class PaymentApp:
-    def __init__(self, root, nama_event, harga_tiket, jumlah_tiket):
+    def __init__(self, root, nama_event, harga_tiket, jumlah_tiket, tempat, tanggal):
         self.root = root
         self.root.title("Metode Pembayaran")
         self.nama_event = nama_event
         self.harga_tiket = harga_tiket
         self.jumlah_tiket = jumlah_tiket
+        self.tempat = tempat
+        self.tanggal = tanggal
 
         screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
+
         window_width = 320
         window_height = 320
+
         x_position = (screen_width - window_width) // 2
         y_position = (screen_height - window_height) // 2
+        
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
         self.setup_payment_page()
@@ -240,14 +263,14 @@ class PaymentApp:
 
     def print_eticket(self, nama_pembeli, email_pembeli):
         event_images = {
-            "Bouquet Crafting Workshop": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Fun.jpeg",
-            "Clay Painting Class": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Fun.jpeg",
-            "Beads Crafting Session": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Fun.jpeg",
-            "Pizza Palooza": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Cooking.jpeg",
-            "SweetBake Cup": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Cooking.jpeg",
-            "CakeCraft Bento": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Cooking.jpeg",
-            "Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Konser.jpeg",
-            "Day 2 (Gangga, Nadhif Basalamah, Tulus)": r"C:\Users\ASUS\Documents\21 Prokom\Tiket_Konser.jpeg",
+            "Bouquet Crafting Workshop": r"Eventopia\Tiket_Fun.jpeg",
+            "Clay Painting Class": r"Eventopia\Tiket_Fun.jpeg",
+            "Beads Crafting Session": r"Eventopia\Tiket_Fun.jpeg",
+            "Pizza Palooza": r"Eventopia\Tiket_Cooking.jpeg",
+            "SweetBake Cup": r"Eventopia\Tiket_Cooking.jpeg",
+            "CakeCraft Bento": r"Eventopia\Tiket_Cooking.jpeg",
+            "Day 1 (Yura Yunita, Raisa Anggiani, Arash Buana)": r"Eventopia\Tiket_Konser.jpeg",
+            "Day 2 (Gangga, Nadhif Basalamah, Tulus)": r"Eventopia\Tiket_Konser.jpeg",
         }
 
         image_path = event_images.get(self.nama_event, "default_image.png")
@@ -258,19 +281,34 @@ class PaymentApp:
         font_path = "Perpetua.ttf"  
         font = ImageFont.truetype("PER_____.TTF", 48)
 
-    # Menyesuaikan posisi teks pada gambar
         draw.text((300, 300), f"Nama Event: {self.nama_event}", font=font, fill="brown")
         draw.text((300, 380), f"Nama: {nama_pembeli}", font=font, fill="brown")
         draw.text((300, 460), f"Email: {email_pembeli}", font=font, fill="brown")
-        draw.text((300, 540), f"Jumlah Tiket: {self.jumlah_tiket}", font=font, fill="brown")
-        draw.text((300, 620), f"Total Pembelian: Rp. {self.harga_tiket * self.jumlah_tiket}", font=font, fill="brown")
+        draw.text((300, 540), f"Tempat: {self.tempat}", font=font, fill="brown")
+        draw.text((300, 620), f"Tanggal: {self.tanggal}", font=font, fill="brown")
 
-        img.save(f"e_ticket_{self.nama_event.replace(' ', '_')}.png")
-        messagebox.showinfo("Cetak E-Ticket", f"E-Ticket berhasil dicetak sebagai e_ticket_{self.nama_event.replace(' ', '_')}.png")
+        eticket_path = f"e_ticket_{self.nama_event.replace(' ', '_')}.png"
+        img.save(eticket_path)
+        
+        # Menampilkan e-ticket dalam jendela baru
+        self.show_eticket_window(eticket_path)
 
-def pembayaran(nama_event, harga_tiket, jumlah_tiket):
+    def show_eticket_window(self, eticket_path):
+        eticket_window = tk.Toplevel(self.root)
+        eticket_window.title("E-Ticket")
+        eticket_window.geometry("800x400")
+
+        img = Image.open(eticket_path)
+        img = img.resize((800, 400), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(img)
+
+        label = Label(eticket_window, image=photo)
+        label.image = photo  # Keep a reference to avoid garbage collection
+        label.pack()
+
+def pembayaran(nama_event, harga_tiket, jumlah_tiket, tempat, tanggal):
     payment_root = tk.Toplevel(root)
-    app = PaymentApp(payment_root, nama_event, harga_tiket, jumlah_tiket)
+    app = PaymentApp(payment_root, nama_event, harga_tiket, jumlah_tiket, tempat, tanggal)
     payment_root.mainloop()
 
 def navigate_back():
@@ -280,7 +318,7 @@ def navigate_back():
         if history_stack:
             history_stack[-1].deiconify()
 
-image_path = r'C:\Users\ASUS\Documents\21 Prokom\Home.jpeg'
+image_path = r'Eventopia\Home.jpeg'
 original_image = Image.open(image_path)
 resized_image = original_image.resize((1200, 600), Image.LANCZOS)
 im = ImageTk.PhotoImage(resized_image)

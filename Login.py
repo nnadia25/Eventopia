@@ -77,7 +77,7 @@ def toggle_password(entry, var):
         entry.config(show='*')
 
 # Memuat gambar menggunakan PIL
-image_path = r"C:\Users\ASUS\Documents\21 Prokom\Halaman Login.jpeg"
+image_path = r"Eventopia\Halaman Login.jpeg"
 try:
     pil_image = Image.open(image_path)
     pil_image = pil_image.resize((925, 500), Image.LANCZOS)
