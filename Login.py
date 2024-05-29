@@ -13,7 +13,7 @@ def switch_to_signup():
 
 # Jendela utama
 root = tk.Tk()
-root.title('Login & Signup')
+root.title('Login dulu bro!')
 root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
@@ -29,11 +29,7 @@ def signin():
             users = ast.literal_eval(data)
 
         if username in users and users[username] == password:
-            screen = tk.Toplevel(root)
-            screen.title("Aplikasi")
-            screen.geometry("925x500+300+200")
-            screen.config(bg='white')
-            tk.Label(screen, text='Hello, Everyone!', bg="#fff", font=('Perpetua', 50, 'bold')).pack(expand=True)
+            root.destroy()  # Tutup jendela login 
         else:
             messagebox.showerror('Invalid', 'Username atau password salah')
     except FileNotFoundError:
@@ -81,7 +77,7 @@ def toggle_password(entry, var):
         entry.config(show='*')
 
 # Memuat gambar menggunakan PIL
-image_path = r"C:\Users\DELL\.vscode\EVENTOPIA\Eventopia\Halaman Login.jpeg"
+image_path = r"C:\Users\ASUS\Documents\21 Prokom\Halaman Login.jpeg"
 try:
     pil_image = Image.open(image_path)
     pil_image = pil_image.resize((925, 500), Image.LANCZOS)
@@ -98,7 +94,7 @@ bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 login_frame = tk.Frame(root, bg="white")
 
 heading = tk.Label(login_frame, text='Sign in', fg='#57a1f8', bg='white', font=('Perpetua', 23, 'bold'))
-heading.place(x=125, y=17)
+heading.place(x=125, y=20)
 
 user = tk.Entry(login_frame, width=25, fg="black", border=0, bg="white", font=('Perpetua', 11))
 user.place(x=30, y=80)
@@ -128,7 +124,7 @@ tk.Button(login_frame, width=6, text="Sign Up", border=0, cursor="hand2", fg='#5
 signup_frame = tk.Frame(root, bg="white")
 
 heading = tk.Label(signup_frame, text='Sign Up', fg='#57a1f8', bg='white', font=('Perpetua', 23, 'bold'))
-heading.place(x=125, y=17)
+heading.place(x=120, y=22)
 
 user_signup = tk.Entry(signup_frame, width=25, fg="black", border=0, bg="white", font=('Perpetua', 11))
 user_signup.place(x=30, y=80)
@@ -167,8 +163,8 @@ tk.Label(signup_frame, text='Sudah punya akun?', fg='black', bg='white', font=('
 tk.Button(signup_frame, width=6, text='Sign in', border=0, bg='white', cursor='hand2', fg='#57a1f8', command=switch_to_login).place(x=200, y=340)
 
 # Tempatkan frame login dan signup pada posisi yang sama
-login_frame.place(x=550, y=85, width=350, height=350)
-signup_frame.place(x=550, y=65, width=350, height=400)
+login_frame.place(x=550, y=60, width=350, height=350)
+signup_frame.place(x=550, y=50, width=350, height=400)
 
 # Tampilkan frame login pada awal
 login_frame.tkraise()
