@@ -2,6 +2,10 @@ import tkinter as tk
 from tkinter import ttk, Label, Button, Radiobutton, messagebox, Entry
 from PIL import Image, ImageTk, ImageDraw, ImageFont
 import os
+import csv
+import Login
+
+Login 
 
 root = tk.Tk()
 root.title("Yuk Cari Tiketmu Disini!")
@@ -244,6 +248,11 @@ class PaymentApp:
         except ValueError:
             messagebox.showerror("Input Error", "Total pembelian harus berupa angka.")
 
+        with open(r'pembayaran.csv', mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Nama", "Email", "Nama Event", "Harga Tiket", "Nama Bank", "Total Pembelian"])
+            writer.writerow([nama_pembeli, email_pembeli, total_pembelian, nama_bank])
+
     def show_success_page(self, total_pembelian, nama_bank, nama_pembeli, email_pembeli):
         for widget in self.root.winfo_children():
             widget.destroy()
@@ -260,6 +269,7 @@ class PaymentApp:
 
         self.exit_button = tk.Button(self.root, text="Exit", command=self.root.quit, bg="light blue", fg="black", font=("Perpetua", 12))
         self.exit_button.pack(pady=5)
+    
 
     def print_eticket(self, nama_pembeli, email_pembeli):
         event_images = {
@@ -306,6 +316,18 @@ class PaymentApp:
         label.image = photo  # Keep a reference to avoid garbage collection
         label.pack()
 
+    def save_payment_data(self, data):
+        file_path = "data_pembayaran.csv"
+        file_exists = os.path.isfile(file_path)
+
+        with open(file_path, mode='a', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=data.keys())
+
+            if not file_exists:
+                writer.writeheader()
+
+            writer.writerow(data)
+
 def pembayaran(nama_event, harga_tiket, jumlah_tiket, tempat, tanggal):
     payment_root = tk.Toplevel(root)
     app = PaymentApp(payment_root, nama_event, harga_tiket, jumlah_tiket, tempat, tanggal)
@@ -320,7 +342,7 @@ def navigate_back():
 
 image_path = r'Eventopia\Home.jpeg'
 original_image = Image.open(image_path)
-resized_image = original_image.resize((1200, 600), Image.LANCZOS)
+resized_image = original_image.resize((1200,600), Image.LANCZOS)
 im = ImageTk.PhotoImage(resized_image)
 
 i = Label(root, image=im)
