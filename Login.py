@@ -164,7 +164,7 @@ tk.Button(signup_frame, width=6, text='Sign in', border=0, bg='white', cursor='h
 
 # Tempatkan frame login dan signup pada posisi yang sama
 login_frame.place(x=550, y=60, width=350, height=350)
-signup_frame.place(x=550, y=50, width=350, height=400)
+signup_frame.place(x=550, y=60, width=350, height=400)
 
 # Tampilkan frame login pada awal
 login_frame.tkraise()
